@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class Manager implements Serializable{
 private String name;
-private static ArrayList<Truck> trucks = new ArrayList<>();
-private static ArrayList<Office> offices = new ArrayList<>();
-private static ArrayList<Consignments> consignments = new ArrayList<>();
+private ArrayList<Truck> trucks = new ArrayList<>();
+private ArrayList<Office> offices = new ArrayList<>();
+private ArrayList<Consignments> consignments = new ArrayList<>();
 private String userid;
 private String password;
 
@@ -19,19 +19,20 @@ Manager(String name,String userid,String password){
 public String getname(){
 	return this.name;
 }
-public static void addNewConsignment(Consignments consignment){
+public void addNewConsignment(Consignments consignment){
 	consignments.add(consignment);
 }
-public static void addNewTruck(int office){
+public void addNewTruck(int office){
     Truck temp = new Truck();
     trucks.add(temp);
     offices.get(office).addNewTruck(temp);
 }
-public static void addNewOffice(String name,String userid,String password){
-	Office temp = new Office(name,userid,password);
+public void addNewOffice(String name,String userid,String password){
+	System.out.println("hey");
+	Office temp = new Office(name,userid,password,this);
 	offices.add(temp);
 }
-public static String printConsignment(int consignment){
+public String printConsignment(int consignment){
 	for(int i=0;i<consignments.size();i++){
 		if(consignments.get(i).getId()==consignment){
 			return consignments.get(i).print();
@@ -69,13 +70,13 @@ public String printOfficeNetVolume(int office){
 	}
 	return null;
 }
-public static Truck getTruck(int truck){
+public Truck getTruck(int truck){
 	return trucks.get(truck);
 }
-public static Office getOffice(int office){
+public Office getOffice(int office){
 	return offices.get(office);
 }
-public static int getCountOfOffices(){
+public int getCountOfOffices(){
 	return offices.size();
 }
 }

@@ -75,12 +75,14 @@ public class ManagerLogin extends JFrame {
 		contentPane.add(btnBack);
 	}
     public void btnLoginActionPerformed(){
-    	if(m.login(textField.getText(),textField_1.getText())){
-    		JOptionPane.showMessageDialog(null,"Success");
-    	}
-    	else{
-    		JOptionPane.showMessageDialog(null,"Error");
-    	}
+    	boolean login = false;
+    		if(prev.m.login(textField.getText(),textField_1.getText())) {
+    			ManagerSuccess ms = new ManagerSuccess(prev);
+    			login = true;
+    			ms.setVisible(true);
+    			this.dispose();
+    		}	
+    		else JOptionPane.showMessageDialog(null,"Invalid UserName / Password");
     }
     public void btnBackActionPerformed(){
     	prev.setVisible(true);

@@ -34,8 +34,9 @@ public class Test {
 		         m.addNewOffice("Gurgaon","gur","pass");
 		         m.addNewOffice("Kashmir","kas","pass");
 		         m.addNewOffice("Lucknow","luk","pass");
-		         for(int i=0;i<Manager.getCountOfOffices();i++){
-		        	 Manager.addNewTruck(i);
+		         System.out.println(m.getCountOfOffices());
+		         for(int i=0;i<m.getCountOfOffices();i++){
+		        	 m.addNewTruck(i);
 		         }
 		       
 		        FileOutputStream fileOut = new FileOutputStream("Manager.dat");

@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 public class LoginWindow extends JFrame {
 
 	private JPanel contentPane;
-	private Manager m;
+	public Manager m;
 
 	/**
 	 * Launch the application.
@@ -31,6 +31,7 @@ public class LoginWindow extends JFrame {
 					FileInputStream fileIn = new FileInputStream("Manager.dat");
 			        ObjectInputStream in = new ObjectInputStream(fileIn);
 			        Manager m = (Manager) in.readObject();
+			        System.out.println(m.getCountOfOffices());
 			        in.close();
 			        fileIn.close();
 					LoginWindow frame = new LoginWindow(m);
@@ -47,6 +48,7 @@ public class LoginWindow extends JFrame {
 	 */
 	public LoginWindow(Manager m) {
 		this.m=m;
+		System.out.println(this.m.getCountOfOffices());
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 213);
@@ -82,17 +84,25 @@ public class LoginWindow extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JButton btnExit = new JButton("EXIT");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnExitActionPerformed();
+			}
+		});
 		btnExit.setBounds(179, 143, 89, 23);
 		contentPane.add(btnExit);
 	}
 	public void btnOfficeActionPerformed(){
 		OfficeLogin t = new OfficeLogin(m,this);
 		t.setVisible(true);
-		this.dispose();
+		this.setVisible(false);
 	}
 	public void btnManagerActionPerformed(){
 		ManagerLogin t = new ManagerLogin(m,this);
 		t.setVisible(true);
 		this.setVisible(false);
+	}
+	public void btnExitActionPerformed(){
+		this.dispose();
 	}
 }

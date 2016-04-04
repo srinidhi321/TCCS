@@ -16,14 +16,16 @@ private ArrayList<Loading> loadingTrucks = new ArrayList<>();
 private ArrayList<Office> otherOffices = new ArrayList<>();
 private ArrayList<Consignments> unassignedConsignments = new ArrayList<>();
 private ArrayList<Consignments> receivedConsignments = new ArrayList<>();
+private Manager m;
 
-Office(String name,String userid,String password){
+Office(String name,String userid,String password,Manager m){
 	//constructor
 	this.id=count++;
 	this.name = name;
 	this.userid = userid;
 	this.password = password;
-	for(int i=0;i<this.id;i++) otherOffices.add(Manager.getOffice(i));
+	this.m = m;
+	for(int i=0;i<this.id;i++) otherOffices.add(m.getOffice(i));
 }
 public int getId(){
 	return this.id;
@@ -37,20 +39,20 @@ public String getName(){
 public void addConsignment(String string1,String string2,String string3,String string4,int from,int to,int volume){
 	Consignments temp = new Consignments(string1,string2,string3,string4,from,to,volume);
 	temp.setStatus(ConsignmentStatus.wait);
-	Manager.addNewConsignment(temp);
+	m.addNewConsignment(temp);
 	unassignedConsignments.add(temp);
 	this.reviewConsignments();
 }
 public void sendTruck(int truck){
 	for(int i=0;i<loadingTrucks.size();i++){
 		if(loadingTrucks.get(i).getTruckId()==truck){
-			Manager.getTruck(truck).setStatus(TruckStatus.sent);
+			m.getTruck(truck).setStatus(TruckStatus.sent);
 			loadingTrucks.remove(i);
 		}
 	}
 }
 public void unloadTruck(int truck){
-	Truck temp = Manager.getTruck(truck);
+	Truck temp = m.getTruck(truck);
 	for(Consignments t : temp.getAllConsignments()) {
 		revenue+=t.getCost();
 		netVolume+=t.getVolume();
@@ -67,10 +69,10 @@ public void reviewConsignments(){
 		Consignments temp = unassignedConsignments.get(t);
 		for(int i=0;i<loadingTrucks.size();i++){
 			if(loadingTrucks.get(i).getDestination()==temp.getDestination()){
-				if(Manager.getTruck(loadingTrucks.get(i).getTruckId()).addCosignment(temp)) {
+				if(m.getTruck(loadingTrucks.get(i).getTruckId()).addCosignment(temp)) {
 					added = true;
 					unassignedConsignments.remove(t);
-					if(Manager.getTruck(loadingTrucks.get(i).getTruckId()).isFull()) 
+					if(m.getTruck(loadingTrucks.get(i).getTruckId()).isFull()) 
 					    {
 						this.sendTruck(loadingTrucks.get(i).getTruckId());
 						loadingTrucks.remove(i);
@@ -85,11 +87,11 @@ public void reviewConsignments(){
 				load.setTruckId(idleTrucks.get(0).getId());
 				load.setDestination(temp.getDestination());
 				idleTrucks.remove(0);
-			    Manager.getTruck(load.getTruckId()).setDestination(load.getDestination());	
+			    m.getTruck(load.getTruckId()).setDestination(load.getDestination());	
 				loadingTrucks.add(load);
-				Manager.getTruck(load.getTruckId()).addCosignment(unassignedConsignments.get(t));
+				m.getTruck(load.getTruckId()).addCosignment(unassignedConsignments.get(t));
 				unassignedConsignments.remove(t);
-				if(Manager.getTruck(load.getTruckId()).isFull()){
+				if(m.getTruck(load.getTruckId()).isFull()){
 					this.sendTruck(load.getTruckId());
 					loadingTrucks.remove(loadingTrucks.size()-1);
 				}
@@ -108,13 +110,17 @@ public Consignments getConsignment(){
 	return new Consignments(new String(),new String(),new String(),new String(),0,0,0);
 	//data to be modified
 }
+public void p(){
+	System.out.println(this.userid+" "+this.password);
+}
 public long getRevenue(){
 	return revenue;
 }
 public long getNetVolume(){
 	return netVolume;
 }
-public boolean login(){
+public boolean login(String userid, String password){
+	if(userid.equals(this.userid)&&password.equals(this.password)) return true;
 	return false;
 }
 }

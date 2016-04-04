@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -72,9 +74,20 @@ public class OfficeLogin extends JFrame {
 		contentPane.add(btnBack);
 	}
     public void btnLoginActionPerformed(){
-    	
+    	boolean login = false;
+    	System.out.println(prev.m.getCountOfOffices());
+    	for(int i=0;i<prev.m.getCountOfOffices();i++){
+    		if(prev.m.getOffice(i).login(textField.getText(),textField_1.getText())) {
+    			OfficeSuccess os = new OfficeSuccess(prev,i);
+    			login = true;
+    			os.setVisible(true);
+    			this.dispose();
+    		};
+    	}
+    	if(!login) JOptionPane.showMessageDialog(null,"Invalid UserName / Password");
     }
     public void btnBackActionPerformed(){
-    	
+    prev.setVisible(true);;
+    this.dispose();
     }
 }
