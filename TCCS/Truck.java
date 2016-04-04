@@ -1,20 +1,14 @@
 package TCCS;
 
+import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 enum TruckStatus{
-	idle (0), wait (1),sent(2);
-	private int status;
-	TruckStatus(int status){
-		this.status = status;
-	}
-	public int getStatus(){
-		return this.status;
-	}
-};
+	idle , wait ,sent }
 
-public class Truck {
+public class Truck implements Serializable{
 private static int count;
 private int id;
 private int source;
@@ -30,6 +24,9 @@ private TruckStatus status;
 Truck(){
 	this.id=count++;
 }
+public int getId(){
+	return this.id;
+}
 public boolean addCosignment(Consignments consignment){
 	if(this.volumeFilled+consignment.getVolume()<=500) {
 		if(this.isEmpty()==true){
@@ -42,6 +39,9 @@ public boolean addCosignment(Consignments consignment){
 	}
 	return false;
 }
+public ArrayList<Consignments> getAllConsignments(){
+	return this.consignments;
+}
 public void setSource(int source){
 	this.source = source;
 }
@@ -50,17 +50,46 @@ public void setDestination(int destination){
 }
 public void setStatus(TruckStatus status){
 	this.status = status;
+	if(status == TruckStatus.sent){
+		waitTime.get(waitTime.size()-1).setEndTime();
+		travelTime.add(new Time());
+		for(int i=0;i<consignments.size();i++){
+			consignments.get(i).setStatus(ConsignmentStatus.sent);
+		}
+	}
+	else if(status == TruckStatus.idle && this.isFull()){
+		travelTime.get(travelTime.size()-1).setEndTime();
+		idleTime.add(new Time());
+		for(int i=0;i<consignments.size();i++){
+			consignments.get(i).setStatus(ConsignmentStatus.delivered);
+		}
+		consignments.removeAll(consignments);
+		this.volumeFilled=0;
+	}
+	else if(status == TruckStatus.wait){
+		idleTime.get(idleTime.size()-1).setEndTime();
+		waitTime.add(new Time());
+	}
+	else if(status == TruckStatus.idle){
+		idleTime.add(new Time());
+	}
 }
 public void setInitialTime(){
 	this.initialTime = LocalDateTime.now();
 }
-public int getWaitingTime(){
-	//to be modified
-	return 0;
+public long getWaitingTime(){
+	long sum=0;
+	for(int i=0;i<waitTime.size();i++){
+		sum+=(Duration.between(waitTime.get(i).getStartTime(),waitTime.get(i).getEndTime()).getSeconds()+1800)/3600;
+	}
+	return sum;
 }
-public int getIdleTime(){
-	//to be modified
-	return 0;
+public long getIdleTime(){
+	long sum=0;
+	for(int i=0;i<idleTime.size();i++){
+		sum+=(Duration.between(idleTime.get(i).getStartTime(),idleTime.get(i).getEndTime()).getSeconds()+1800)/3600;
+	}
+	return sum;
 }
 public boolean isEmpty(){
 	if(this.volumeFilled==0) return true;

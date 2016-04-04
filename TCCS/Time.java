@@ -1,8 +1,9 @@
 package TCCS;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Time {
+public class Time implements Serializable{
 private LocalDateTime startTime;
 private LocalDateTime endTime;
 private int source;
@@ -26,5 +27,11 @@ public int getSource(){
 }
 public int getDestination(){
 	return this.destination;
+}
+public LocalDateTime getStartTime(){
+	return this.startTime;
+}
+public LocalDateTime getEndTime(){
+	return this.endTime;
 }
 }
