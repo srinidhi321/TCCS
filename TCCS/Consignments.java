@@ -14,6 +14,7 @@ private Time time = new Time();
 private int truckAllocated;
 private int volume;
 private long cost;
+private int pk = 2;
 private ConsignmentStatus status;
 private String senderName;
 private String senderAddress;
@@ -56,7 +57,8 @@ public void setVolume(int volume){
 	this.volume = volume;
 }
 public void setCost(){
-	//modify
+	if( time.getSource() > time.getDestination() ) cost = pk*(time.getSource()-time.getDestination())*volume;
+	else cost = pk*(time.getDestination()-time.getSource())*volume;
 }
 public long getCost(){
 	return this.cost;
@@ -73,8 +75,7 @@ public String printBill(){
 }
 public long getWaitingTime(){
 	Duration dur = Duration.between(time.getStartTime(),time.getEndTime());
-	if((dur.getSeconds()%3600)/60<30) return dur.getSeconds()/3600;
-	return dur.getSeconds()/3600+1;
+	return (dur.getSeconds()+30)/60;
 }
 public int getDestination(){
 	return time.getDestination();
@@ -90,5 +91,8 @@ public String getSenderName(){
 }
 public String getReceiverName(){
 	return this.receiverName;
+}
+public ConsignmentStatus getStatus(){
+	return this.status;
 }
 }

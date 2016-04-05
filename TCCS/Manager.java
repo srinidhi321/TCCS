@@ -79,4 +79,10 @@ public Office getOffice(int office){
 public int getCountOfOffices(){
 	return offices.size();
 }
+public ArrayList<Consignments> getConsignments(){
+	return this.consignments;
+}
+public ArrayList<Truck> getTrucks(){
+	return this.trucks;
+}
 }

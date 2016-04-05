@@ -60,6 +60,7 @@ public void unloadTruck(int truck){
 	receivedConsignments.addAll(temp.getAllConsignments());
 	temp.setStatus(TruckStatus.idle);
 	temp.setSource(this.id);
+	temp.setDestination(-1);
 	idleTrucks.add(temp);
 	this.reviewConsignments();
 }
@@ -110,9 +111,6 @@ public void addNewTruck(Truck truck){
 }
 public ArrayList<Consignments> getUnassignedConsignment(){
 	return unassignedConsignments;
-}
-public void p(){
-	System.out.println(this.userid+" "+this.password);
 }
 public long getRevenue(){
 	return revenue;

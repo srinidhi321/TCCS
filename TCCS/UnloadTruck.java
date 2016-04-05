@@ -13,13 +13,15 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class UnloadTruck extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
 	OfficeSuccess os;
+	JComboBox comboBox;
 	public UnloadTruck(OfficeSuccess os) {
 		this.os=os;
 		setResizable(false);
@@ -39,11 +41,6 @@ public class UnloadTruck extends JFrame {
 		lblEnterTheTruck.setBounds(10, 47, 154, 14);
 		contentPane.add(lblEnterTheTruck);
 		
-		textField = new JTextField();
-		textField.setBounds(174, 44, 116, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
-		
 		JButton btnUnload = new JButton("Unload");
 		btnUnload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -61,6 +58,11 @@ public class UnloadTruck extends JFrame {
 		});
 		btnBack.setBounds(226, 7, 64, 23);
 		contentPane.add(btnBack);
+		ArrayList<Integer> tr = new ArrayList<>();
+		for(int i=0;i<os.prev.m.getTrucks().size();i++) tr.add(i);
+		comboBox = new JComboBox(tr.toArray());
+		comboBox.setBounds(174, 44, 116, 20);
+		contentPane.add(comboBox);
 		
 		
 	}
@@ -69,15 +71,15 @@ public class UnloadTruck extends JFrame {
 		this.dispose();
 	}
 	public void btnUnloadActionPerformed(){
-		if(textField.getText().isEmpty()){
+		if(comboBox.getSelectedIndex()==-1){
 			JOptionPane.showMessageDialog(null,"Fields Left Empty");
 		}
-		else if(os.prev.m.getTruck(Integer.parseInt(textField.getText())).getDestination()!=os.id){
+		else if(os.prev.m.getTruck((Integer)comboBox.getSelectedItem()).getDestination()!=os.id){
 			JOptionPane.showMessageDialog(null,"The Truck wasn't sent to this Office. Enter a valid Truck ID");
 		}
 		else {
-			System.out.println(os.prev.m.getTruck(Integer.parseInt(textField.getText())).getDestination());
-		    os.prev.m.getOffice(os.id).unloadTruck(Integer.parseInt(textField.getText()));
+			System.out.println(os.prev.m.getTruck((Integer)comboBox.getSelectedItem()).getDestination());
+		    os.prev.m.getOffice(os.id).unloadTruck((Integer)comboBox.getSelectedItem());
 		    JOptionPane.showMessageDialog(null,"Truck Successfully Unloaded");
 		    os.setVisible(true);
 		    this.dispose();

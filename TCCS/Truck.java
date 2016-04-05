@@ -89,15 +89,21 @@ public long getWaitingTime(){
 public long getIdleTime(){
 	long sum=0;
 	for(int i=0;i<idleTime.size();i++){
-		sum+=(Duration.between(idleTime.get(i).getStartTime(),idleTime.get(i).getEndTime()).getSeconds()+1800)/3600;
+		sum+=(Duration.between(idleTime.get(i).getStartTime(),idleTime.get(i).getEndTime()).getSeconds()+30)/60;
 	}
-	return sum;
+	return sum/idleTime.size();
 }
 public int getDestination(){
 	return this.destination;
 }
+public int getSource(){
+	return this.source;
+}
 public int getVolumeFilled(){
 	return this.volumeFilled;
+}
+public TruckStatus getStatus(){
+	return this.status;
 }
 public boolean isEmpty(){
 	if(this.volumeFilled==0) return true;
