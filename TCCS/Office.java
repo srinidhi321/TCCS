@@ -75,7 +75,7 @@ public void reviewConsignments(){
 					if(m.getTruck(loadingTrucks.get(i).getTruckId()).isFull()) 
 					    {
 						this.sendTruck(loadingTrucks.get(i).getTruckId());
-						loadingTrucks.remove(i);
+						//loadingTrucks.remove(i); being removed in send truck
 						}
 					break;
 				}
@@ -88,12 +88,14 @@ public void reviewConsignments(){
 				load.setDestination(temp.getDestination());
 				idleTrucks.remove(0);
 			    m.getTruck(load.getTruckId()).setDestination(load.getDestination());	
-				loadingTrucks.add(load);
+			    System.out.println(loadingTrucks.size());
+			    loadingTrucks.add(load);
+				System.out.println(loadingTrucks.size());
 				m.getTruck(load.getTruckId()).addCosignment(unassignedConsignments.get(t));
 				unassignedConsignments.remove(t);
 				if(m.getTruck(load.getTruckId()).isFull()){
 					this.sendTruck(load.getTruckId());
-					loadingTrucks.remove(loadingTrucks.size()-1);
+					//loadingTrucks.remove(loadingTrucks.size()-1);
 				}
 			}
 		}
@@ -102,13 +104,12 @@ public void reviewConsignments(){
 public void addNewTruck(Truck truck){
 	idleTrucks.add(truck);
 	truck.setSource(this.id);
+	truck.setDestination(-1);
 	truck.setStatus(TruckStatus.idle);
 	this.reviewConsignments();
 }
-//method not needed anukuntaa
-public Consignments getConsignment(){
-	return new Consignments(new String(),new String(),new String(),new String(),0,0,0);
-	//data to be modified
+public ArrayList<Consignments> getUnassignedConsignment(){
+	return unassignedConsignments;
 }
 public void p(){
 	System.out.println(this.userid+" "+this.password);
@@ -122,5 +123,11 @@ public long getNetVolume(){
 public boolean login(String userid, String password){
 	if(userid.equals(this.userid)&&password.equals(this.password)) return true;
 	return false;
+}
+public ArrayList<Loading> getLoadingTrucks(){
+	return this.loadingTrucks;
+}
+public ArrayList<Truck> getIdleTrucks(){
+	return this.idleTrucks;
 }
 }

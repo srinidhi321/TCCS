@@ -67,6 +67,7 @@ public class OfficeSuccess extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				btnNewButtonActionPerformed();
 			}
 		});
 		btnNewButton.setBounds(125, 128, 195, 23);
@@ -76,6 +77,7 @@ public class OfficeSuccess extends JFrame {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				btnNewButton_1ActionPerformed();
 			}
 		});
 		btnNewButton_1.setBounds(125, 160, 195, 23);
@@ -94,6 +96,7 @@ public class OfficeSuccess extends JFrame {
 		btnViewIdleTrucks.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnViewIdleTrucks.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnViewIdleTrucksActionPerformed();
 			}
 		});
 		btnViewIdleTrucks.setBounds(125, 194, 195, 23);
@@ -112,6 +115,21 @@ public class OfficeSuccess extends JFrame {
     public void btnUnloadTruckActionPerformed(){
     	UnloadTruck ut = new UnloadTruck(this);
     	ut.setVisible(true);
+    	this.setVisible(false);
+    }
+    public void btnNewButtonActionPerformed(){
+    	LoadingTrucks lt = new LoadingTrucks(this);
+    	lt.setVisible(true);
+    	this.setVisible(false);
+    }
+    public void btnNewButton_1ActionPerformed(){
+    	UnassignedConsignments uc = new UnassignedConsignments(this);
+    	uc.setVisible(true);
+    	this.setVisible(false);
+    }
+    public void btnViewIdleTrucksActionPerformed(){
+    	IdleTrucks it = new IdleTrucks(this);
+    	it.setVisible(true);
     	this.setVisible(false);
     }
 }

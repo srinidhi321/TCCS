@@ -76,6 +76,7 @@ public class UnloadTruck extends JFrame {
 			JOptionPane.showMessageDialog(null,"The Truck wasn't sent to this Office. Enter a valid Truck ID");
 		}
 		else {
+			System.out.println(os.prev.m.getTruck(Integer.parseInt(textField.getText())).getDestination());
 		    os.prev.m.getOffice(os.id).unloadTruck(Integer.parseInt(textField.getText()));
 		    JOptionPane.showMessageDialog(null,"Truck Successfully Unloaded");
 		    os.setVisible(true);

@@ -85,4 +85,10 @@ public int  getSource(){
 public int getVolume(){
 	return this.volume;
 }
+public String getSenderName(){
+	return this.senderName;
+}
+public String getReceiverName(){
+	return this.receiverName;
+}
 }

@@ -9,6 +9,9 @@ private LocalDateTime endTime;
 private int source;
 private int destination;
 
+Time(){
+	startTime = LocalDateTime.now();
+}
 public void setStartTime(){
 	this.startTime = LocalDateTime.now();
 }

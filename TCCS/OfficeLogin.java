@@ -14,14 +14,15 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class OfficeLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
 	Manager m;
 	LoginWindow prev;
+	private JPasswordField passwordField;
 	public OfficeLogin(Manager m,LoginWindow prev) {
 		this.m = m;
 		this.prev = prev;
@@ -50,11 +51,6 @@ public class OfficeLogin extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(98, 83, 227, 20);
-		contentPane.add(textField_1);
-		
 		JButton btnLogin = new JButton("LOGIN");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -72,12 +68,16 @@ public class OfficeLogin extends JFrame {
 		});
 		btnBack.setBounds(236, 114, 89, 23);
 		contentPane.add(btnBack);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(98, 83, 227, 20);
+		contentPane.add(passwordField);
 	}
     public void btnLoginActionPerformed(){
     	boolean login = false;
     	System.out.println(prev.m.getCountOfOffices());
     	for(int i=0;i<prev.m.getCountOfOffices();i++){
-    		if(prev.m.getOffice(i).login(textField.getText(),textField_1.getText())) {
+    		if(prev.m.getOffice(i).login(textField.getText(),passwordField.getText())) {
     			OfficeSuccess os = new OfficeSuccess(prev,i);
     			login = true;
     			os.setVisible(true);

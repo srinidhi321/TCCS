@@ -23,6 +23,8 @@ private TruckStatus status;
 
 Truck(){
 	this.id=count++;
+	initialTime = LocalDateTime.now();
+	destination = -1;
 }
 public int getId(){
 	return this.id;
@@ -94,6 +96,9 @@ public long getIdleTime(){
 public int getDestination(){
 	return this.destination;
 }
+public int getVolumeFilled(){
+	return this.volumeFilled;
+}
 public boolean isEmpty(){
 	if(this.volumeFilled==0) return true;
 	return false;
@@ -101,5 +106,8 @@ public boolean isEmpty(){
 public boolean isFull(){
 	if(this.volumeFilled==500) return true;
 	return false;
+}
+public LocalDateTime getIdleStartTime(){
+	return idleTime.get(idleTime.size()-1).getStartTime();
 }
 }
