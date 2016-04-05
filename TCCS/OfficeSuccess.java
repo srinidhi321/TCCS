@@ -16,11 +16,13 @@ import java.awt.event.ActionEvent;
 public class OfficeSuccess extends JFrame {
 
 	private JPanel contentPane;
-	private LoginWindow prev;
+	public LoginWindow prev;
+	public int id;
 	private JTextField textField;
     	public OfficeSuccess(LoginWindow prev,int id) {
     		setResizable(false);
     		this.prev=prev;
+    		this.id = id;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 445, 266);
 		contentPane = new JPanel();
@@ -42,23 +44,41 @@ public class OfficeSuccess extends JFrame {
 		textField.setText(prev.m.getOffice(id).getName());
 		
 		JButton btnAddConsignment = new JButton("Add Consignment");
-		btnAddConsignment.setBounds(130, 60, 185, 23);
+		btnAddConsignment.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnAddConsignment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnAddConsignmentActionPerformed();
+			}
+		});
+		btnAddConsignment.setBounds(125, 60, 195, 23);
 		contentPane.add(btnAddConsignment);
 		
 		JButton btnUnloadTruck = new JButton("Unload Truck");
-		btnUnloadTruck.setBounds(130, 94, 185, 23);
+		btnUnloadTruck.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnUnloadTruckActionPerformed();
+			}
+		});
+		btnUnloadTruck.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnUnloadTruck.setBounds(125, 94, 195, 23);
 		contentPane.add(btnUnloadTruck);
 		
 		JButton btnNewButton = new JButton("View Loading Trucks");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton.setBounds(130, 128, 185, 23);
+		btnNewButton.setBounds(125, 128, 195, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("View Unassigned Consignments");
-		btnNewButton_1.setBounds(130, 160, 185, 23);
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton_1.setBounds(125, 160, 195, 23);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnLogout = new JButton("Logout");
@@ -71,16 +91,27 @@ public class OfficeSuccess extends JFrame {
 		contentPane.add(btnLogout);
 		
 		JButton btnViewIdleTrucks = new JButton("View Idle Trucks");
+		btnViewIdleTrucks.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnViewIdleTrucks.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnViewIdleTrucks.setBounds(127, 194, 185, 23);
+		btnViewIdleTrucks.setBounds(125, 194, 195, 23);
 		contentPane.add(btnViewIdleTrucks);
 		
 	}
     public void btnLogoutActionPerformed(){
     	prev.setVisible(true);
     	this.dispose();
+    }
+    public void btnAddConsignmentActionPerformed(){
+    	AddConsignment ac = new AddConsignment(this);
+    	ac.setVisible(true);
+    	this.setVisible(false);
+    }
+    public void btnUnloadTruckActionPerformed(){
+    	UnloadTruck ut = new UnloadTruck(this);
+    	ut.setVisible(true);
+    	this.setVisible(false);
     }
 }

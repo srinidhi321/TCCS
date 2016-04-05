@@ -91,6 +91,9 @@ public long getIdleTime(){
 	}
 	return sum;
 }
+public int getDestination(){
+	return this.destination;
+}
 public boolean isEmpty(){
 	if(this.volumeFilled==0) return true;
 	return false;

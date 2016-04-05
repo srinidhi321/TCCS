@@ -10,7 +10,7 @@ enum ConsignmentStatus{
 public class Consignments implements Serializable{
 private static int count;
 private int id;
-private Time time;
+private Time time = new Time();
 private int truckAllocated;
 private int volume;
 private long cost;
