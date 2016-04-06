@@ -104,20 +104,6 @@ public class ManagerSuccess extends JFrame {
 		});
 		btnGetWaitingTime.setBounds(130, 189, 190, 23);
 		contentPane.add(btnGetWaitingTime);
-		
-		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					btnSaveActionPerformed();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnSave.setBounds(336, 35, 89, 23);
-		contentPane.add(btnSave);
 	}
     
     public void btnLogoutActionPerformed(){
@@ -149,9 +135,10 @@ public class ManagerSuccess extends JFrame {
     	ic.setVisible(true);
     	this.setVisible(false);
     }
-    public void btnSaveActionPerformed() throws Exception{
-    	GD.id = (int) Serialize.writeJavaObject(GD.conn, prev.m);
-    	Id.updateId(GD.id);
-    	System.out.println("Saved Successfully");
-    	 }
+//    public void btnSaveActionPerformed() throws Exception{
+//    	
+//    	GD.id = (int) Serialize.writeJavaObject(GD.conn, prev.m);
+//    	Id.updateId(GD.id);
+//    	System.out.println("Saved Successfully");
+//    	 }
 }

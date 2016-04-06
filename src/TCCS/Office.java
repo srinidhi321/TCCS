@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Office implements Serializable{
-private static int count;
 private int id;
 private String userid;
 private String password;
@@ -18,9 +17,9 @@ private ArrayList<Consignments> unassignedConsignments = new ArrayList<>();
 private ArrayList<Consignments> receivedConsignments = new ArrayList<>();
 private Manager m;
 
-Office(String name,String userid,String password,Manager m){
+Office(String name,String userid,String password,Manager m,int id){
 	//constructor
-	this.id=count++;
+	this.id=id;
 	this.name = name;
 	this.userid = userid;
 	this.password = password;
@@ -36,8 +35,8 @@ public void setName(String name){
 public String getName(){
 	return this.name;
 }
-public void addConsignment(String string1,String string2,String string3,String string4,int from,int to,int volume){
-	Consignments temp = new Consignments(string1,string2,string3,string4,from,to,volume);
+public void addConsignment(String string1,String string2,String string3,String string4,int from,int to,int volume,int id){
+	Consignments temp = new Consignments(string1,string2,string3,string4,from,to,volume,id);
 	temp.setStatus(ConsignmentStatus.wait);
 	m.addNewConsignment(temp);
 	unassignedConsignments.add(temp);
@@ -72,6 +71,7 @@ public void reviewConsignments(){
 			if(loadingTrucks.get(i).getDestination()==temp.getDestination()){
 				if(m.getTruck(loadingTrucks.get(i).getTruckId()).addCosignment(temp)) {
 					added = true;
+					temp.setTruck(loadingTrucks.get(i).getTruckId());
 					unassignedConsignments.remove(t);
 					if(m.getTruck(loadingTrucks.get(i).getTruckId()).isFull()) 
 					    {
@@ -91,8 +91,10 @@ public void reviewConsignments(){
 			    m.getTruck(load.getTruckId()).setDestination(load.getDestination());	
 			    System.out.println(loadingTrucks.size());
 			    loadingTrucks.add(load);
-				System.out.println(loadingTrucks.size());
+				
+			    System.out.println(loadingTrucks.size());
 				m.getTruck(load.getTruckId()).addCosignment(unassignedConsignments.get(t));
+				temp.setTruck(load.getTruckId());
 				unassignedConsignments.remove(t);
 				if(m.getTruck(load.getTruckId()).isFull()){
 					this.sendTruck(load.getTruckId());

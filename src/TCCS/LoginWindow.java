@@ -39,8 +39,20 @@ public class LoginWindow extends JFrame {
 					GD.id=Id.getId();
 					Connection conn = (Connection) Serialize.getConnection();
 					GD.conn=conn;
-			        Manager m = (Manager)Serialize.readJavaObject(conn,GD.id);
-			       
+//                       Manager m = new Manager("partha pratim das","ppd","ppd");
+					Manager m = (Manager)Serialize.readJavaObject(conn,GD.id);
+//			       m.addNewOffice("Visakhapatnam","vskp","pass");
+//			         m.addNewOffice("Hyderabad","sec","pass");
+//			         m.addNewOffice("Kolkata","hwh","pass");
+//			         m.addNewOffice("Bangalore","bgl","pass");
+//			         m.addNewOffice("Delhi","del","pass");
+//			         m.addNewOffice("Mumbai","mum","pass");
+//			         m.addNewOffice("Chennai","che","pass");
+//			         m.addNewOffice("Allepey","all","pass");
+//			         for(int i=0;i<m.getCountOfOffices();i++){
+//			        	 m.addNewTruck(i);
+//			         }
+//			       
 			        System.out.println(m.getCountOfOffices());
 					LoginWindow frame = new LoginWindow(m);
 					frame.setVisible(true);

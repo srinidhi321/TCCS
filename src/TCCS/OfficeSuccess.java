@@ -107,20 +107,6 @@ public class OfficeSuccess extends JFrame {
 		btnViewIdleTrucks.setBounds(125, 194, 195, 23);
 		contentPane.add(btnViewIdleTrucks);
 		
-		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					btnSaveActionPerformed();
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnSave.setBounds(340, 34, 89, 23);
-		contentPane.add(btnSave);
-		
 	}
     public void btnLogoutActionPerformed(){
     	prev.setVisible(true);

@@ -143,9 +143,18 @@ public class AddConsignment extends JFrame {
 			JOptionPane.showMessageDialog(null,"Fields left Empty");
 		}
 		else{
-			os.prev.m.getOffice(os.id).addConsignment(textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText(),Integer.parseInt(textField_4.getText()),((Integer) comboBox.getSelectedItem()).intValue(),Integer.parseInt(textField_5.getText()));
+			os.prev.m.getOffice(os.id).addConsignment(textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText(),Integer.parseInt(textField_4.getText()),((Integer) comboBox.getSelectedItem()).intValue(),Integer.parseInt(textField_5.getText()),os.prev.m.getCountOfConsignments());
+			try {
+				os.btnSaveActionPerformed();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			JOptionPane.showMessageDialog(null,"Consignment Added");
-			IssueBill ib = new IssueBill(os,os.prev.m.getConsignments().get(os.prev.m.getConsignments().size()-1).getCost());
+			if(os.prev.m.getConsignments().get(os.prev.m.getConsignments().size()-1).getStatus() == ConsignmentStatus.sent ){
+				SentTruck st = new SentTruck(os,os.prev.m.getConsignments().get(os.prev.m.getCountOfConsignments()-1).getTruckAllocated());
+				st.setVisible(true);
+			}
+			IssueBill ib = new IssueBill(os,os.prev.m.getCountOfConsignments()-1);
 			ib.setVisible(true);
 			this.dispose();
 		}

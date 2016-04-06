@@ -23,13 +23,13 @@ public void addNewConsignment(Consignments consignment){
 	consignments.add(consignment);
 }
 public void addNewTruck(int office){
-    Truck temp = new Truck();
+    Truck temp = new Truck(this.trucks.size());
     trucks.add(temp);
     offices.get(office).addNewTruck(temp);
 }
 public void addNewOffice(String name,String userid,String password){
 	System.out.println("hey");
-	Office temp = new Office(name,userid,password,this);
+	Office temp = new Office(name,userid,password,this,this.offices.size());
 	offices.add(temp);
 }
 public String printConsignment(int consignment){
@@ -78,6 +78,9 @@ public Office getOffice(int office){
 }
 public int getCountOfOffices(){
 	return offices.size();
+}
+public int getCountOfConsignments(){
+	return consignments.size();
 }
 public ArrayList<Consignments> getConsignments(){
 	return this.consignments;

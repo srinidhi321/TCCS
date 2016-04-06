@@ -41,6 +41,7 @@ public class IdleView extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		textField.setText(Integer.valueOf(index).toString());
+		System.out.println(index);
 		
 		JLabel lblIs = new JLabel("IS");
 		lblIs.setFont(new Font("Stencil", Font.PLAIN, 14));
@@ -51,7 +52,7 @@ public class IdleView extends JFrame {
 		textField_1.setBounds(49, 36, 135, 20);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
-		textField.setText(Long.valueOf(ms.prev.m.getTruck(index).getIdleTime()).toString());
+		textField_1.setText(Long.valueOf(ms.prev.m.getTruck(index).getIdleTime()).toString());
 		
 		JLabel lblHrs = new JLabel("Mins.");
 		lblHrs.setBounds(186, 39, 46, 14);

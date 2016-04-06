@@ -23,7 +23,7 @@ private String senderAddress;
 private String receiverName;
 private String receiverAddress;
 
-Consignments(String senderName,String senderAddress,String receiverName,String receiverAddress,int from,int to,int volume){
+Consignments(String senderName,String senderAddress,String receiverName,String receiverAddress,int from,int to,int volume,int id){
 	this.senderName = senderName;
 	this.senderAddress = senderAddress;
 	this.receiverName = receiverName;
@@ -32,7 +32,7 @@ Consignments(String senderName,String senderAddress,String receiverName,String r
 	this.setDestination(to);
 	this.setVolume(volume);
 	this.setCost();
-	this.id=count++;
+	this.id=id;
 }
 public int getId(){
 	return this.id;
@@ -66,7 +66,7 @@ public long getCost(){
 }
 @Override
 public String toString(){
-	return new String("id : "+Integer.valueOf(this.id).toString()+" from : "+this.senderName+" to : "+this.receiverAddress);
+	return new String("id : "+Integer.valueOf(this.id).toString()+"  sender : "+this.senderName+"  receiver : "+this.receiverName+"  from : "+this.senderAddress+"  to : "+this.receiverAddress+"  volume : "+Integer.valueOf(this.volume).toString()+"  truck : "+Integer.valueOf(this.truckAllocated).toString());
 }
 public String print(){
 	return this.toString();
@@ -95,5 +95,8 @@ public String getReceiverName(){
 }
 public ConsignmentStatus getStatus(){
 	return this.status;
+}
+public int getTruckAllocated(){
+	return this.truckAllocated;
 }
 }

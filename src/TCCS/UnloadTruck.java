@@ -80,6 +80,11 @@ public class UnloadTruck extends JFrame {
 		else {
 			System.out.println(os.prev.m.getTruck((Integer)comboBox.getSelectedItem()).getDestination());
 		    os.prev.m.getOffice(os.id).unloadTruck((Integer)comboBox.getSelectedItem());
+		    try {
+				os.btnSaveActionPerformed();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		    JOptionPane.showMessageDialog(null,"Truck Successfully Unloaded");
 		    os.setVisible(true);
 		    this.dispose();

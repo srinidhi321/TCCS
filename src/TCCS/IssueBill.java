@@ -19,7 +19,7 @@ public class IssueBill extends JFrame {
 	OfficeSuccess os;
 	long bill;
 	private JTextField textField;
-	public IssueBill(OfficeSuccess os,long bill) {
+	public IssueBill(OfficeSuccess os,int id) {
 		setResizable(false);
 		this.os = os;
 		this.bill = bill;
@@ -36,13 +36,13 @@ public class IssueBill extends JFrame {
 		contentPane.add(lblBillForThe);
 		
 		textField = new JTextField();
-		textField.setBounds(259, 8, 86, 20);
+		textField.setBounds(10, 40, 178, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		textField.setText(Long.valueOf(bill).toString());
+		textField.setText(os.prev.m.getConsignments().get(id).printBill());
 		
 		JLabel lblRs = new JLabel("Rs.");
-		lblRs.setBounds(348, 11, 46, 14);
+		lblRs.setBounds(198, 43, 27, 14);
 		contentPane.add(lblRs);
 		
 		JButton btnBack = new JButton("BACK");

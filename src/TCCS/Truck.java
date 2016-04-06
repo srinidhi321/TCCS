@@ -9,7 +9,6 @@ enum TruckStatus{
 	idle , wait ,sent }
 
 public class Truck implements Serializable{
-private static int count;
 private int id;
 private int source;
 private int destination;
@@ -21,8 +20,8 @@ private ArrayList<Time> travelTime = new ArrayList<>();
 private ArrayList<Consignments> consignments = new ArrayList<>();
 private TruckStatus status;
 
-Truck(){
-	this.id=count++;
+Truck(int id){
+	this.id=id;
 	initialTime = LocalDateTime.now();
 	destination = -1;
 }
@@ -89,7 +88,8 @@ public long getWaitingTime(){
 public long getIdleTime(){
 	long sum=0;
 	for(int i=0;i<idleTime.size();i++){
-		sum+=(Duration.between(idleTime.get(i).getStartTime(),idleTime.get(i).getEndTime()).getSeconds()+30)/60;
+		if(idleTime.get(i).getEndTime()!=null)sum+=(Duration.between(idleTime.get(i).getStartTime(),idleTime.get(i).getEndTime()).getSeconds()+30)/60;
+		else sum+=(Duration.between(idleTime.get(i).getStartTime(),LocalDateTime.now()).getSeconds()+30)/60; 
 	}
 	return sum/idleTime.size();
 }
